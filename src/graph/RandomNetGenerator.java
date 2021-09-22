@@ -113,7 +113,7 @@ public class RandomNetGenerator {
         while (edgeCount > 0) {
             int v1 = random.nextInt(vertexCount);
             int v2 = random.nextInt(vertexCount);
-            if(v1 != v2 && map.get(v1) != map.get(v2) && random.nextInt(100) > coefExist) {
+            if(v1 != v2 && map.get(v1) != map.get(v2) && random.nextDouble() > coefExist) {
                 if (graph.findEdge(v1,v2) == null){
                     graph.addEdge(new Link<>(-1), v1, v2);
                     edgeCount--;
@@ -182,7 +182,7 @@ public class RandomNetGenerator {
 
         int v1, v2;
 
-        double coefPositive = 0.5;
+        double coefPositive = 0.9;
         while (edgeCount > 0) {
 
             v1 = cluster.get(random.nextInt(cluster.size()));
