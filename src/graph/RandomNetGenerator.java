@@ -227,6 +227,7 @@ public class RandomNetGenerator {
                 }
             }
         }
+
         return graph;
     }
 
