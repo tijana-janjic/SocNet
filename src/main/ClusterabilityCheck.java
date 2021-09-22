@@ -28,7 +28,7 @@ public class ClusterabilityCheck<V, E> {
     private final UndirectedSparseGraph<Cluster<V,E>, FriendLink> clusterNet
             = new UndirectedSparseGraph<>();
 
-    private final double density;
+    private double density;
     private double degree;
 
     private int coalitionsVertices;
@@ -46,7 +46,6 @@ public class ClusterabilityCheck<V, E> {
     public ClusterabilityCheck(UndirectedSparseGraph<V, E> net, Transformer<E, Boolean> transformer) {
         this.net = net;
         this.transformer = transformer;
-        this.density = initGraphDensity();
         clusters = new HashSet<>();
         coalitions = new HashSet<>();
         anticoalitions = new HashSet<>();
@@ -58,32 +57,13 @@ public class ClusterabilityCheck<V, E> {
      * Pokretanje provjere klasterabilnosti
      */
     private void init(){
-
+        initAverageVertexDegree();
+        initGraphDensity();
         findComponents();
         createClusterNet();
         clusterable = anticoalitions.isEmpty();
-        initAverageVertexDegree();
     }
 
-    private void initAverageVertexDegree(){
-        degree = getAverageVertexDegree(net);
-    }
-
-    public double initGraphDensity() {
-        double vertexCount = net.getVertexCount();
-        double maxEdges = (vertexCount-1) * vertexCount / 2;
-        return (double)(net.getEdgeCount())/maxEdges;
-    }
-
-    private double getAverageVertexDegree(UndirectedSparseGraph<V,E> graph) {
-        if (net.getVertexCount() == 0)
-            return 0;
-        int total = 0;
-        for (V v : graph.getVertices()) {
-            total += graph.degree(v);
-        }
-        return total / (double) net.getVertexCount();
-    }
 
     /**
      * Kreira mrezu klastera,
@@ -164,6 +144,23 @@ public class ClusterabilityCheck<V, E> {
         return cluster;
     }
 
+    public void initGraphDensity() {
+        double vertexCount = net.getVertexCount();
+        double maxEdges = (vertexCount-1) * vertexCount / 2;
+        density = (double)(net.getEdgeCount())/maxEdges;
+    }
+
+    private void initAverageVertexDegree(){
+        if (net.getVertexCount() == 0)
+            degree = 0;
+        else {
+            int total = 0;
+            for (V v : net.getVertices()) {
+                total += net.degree(v);
+            }
+            degree = total / (double) net.getVertexCount();
+        }
+    }
 
     private boolean isFriendly(E e){
         return transformer.transform(e);
