@@ -1,13 +1,12 @@
 package graph;
 
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
-import graph.Link;
 
 import java.io.*;
 
 public class SocNetFileReader {
 
-    public UndirectedSparseGraph<Integer, Link<Integer>> readSimpleTxtFile(String path){
+    public UndirectedSparseGraph<Integer, Link<Integer>> readFromSimpleTxtFile(String path){
 
         UndirectedSparseGraph<Integer, Link<Integer>> graph = null;
         BufferedReader br = null;
@@ -115,11 +114,11 @@ public class SocNetFileReader {
     }
 
     public UndirectedSparseGraph<Integer, Link<Integer>> readSlashDot() {
-        return readSimpleTxtFile("src/files/in/soc-sign-Slashdotn.txt");
+        return readFromSimpleTxtFile("src/files/in/soc-sign-Slashdotn.txt");
     }
 
     public UndirectedSparseGraph<Integer, Link<Integer>> readEpions() {
-        return readSimpleTxtFile("src/files/in/soc-sign-epinions.txt");
+        return readFromSimpleTxtFile("src/files/in/soc-sign-epinions.txt");
     }
 
     public UndirectedSparseGraph<Integer, Link<Integer>> readWiki(){
