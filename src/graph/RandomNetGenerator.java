@@ -22,15 +22,15 @@ public class RandomNetGenerator {
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomClusterableNet() {
-        return generateRandomNet(random.nextInt(10000)+5000, random.nextInt(500)+1, true);
+        return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000)+1, true);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomUnclusterableNet() {
-        return generateRandomNet(random.nextInt(10000) + 5000, random.nextInt(500) + 1, false);
+        return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000) + 1, false);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet() {
-            return generateRandomNet(random.nextInt(10000)+5000, random.nextInt(500)+1, random.nextBoolean());
+            return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000)+1, random.nextBoolean());
     }
 
     private static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet(int vertexCount, int clusterCount, boolean clusterable){
@@ -205,7 +205,7 @@ public class RandomNetGenerator {
 
         UndirectedSparseGraph<Integer, Link<Integer>> graph = new UndirectedSparseGraph<>();
 
-        int n = 30;
+        int n = 10;
 
         for (int i = 1; i <= n; i++) {
             graph.addVertex(i);
@@ -213,9 +213,8 @@ public class RandomNetGenerator {
 
         //pozitivne grane
         for (int v1 = 1; v1 <= n; v1++) {
-            for (int v2 = v1+2; v2 <= n; v2++) {
-                if(v2-v1 == 4)
-                    graph.addEdge(new Link<>(1),v1,v2);
+            for (int v2 = v1+4; v2 <= n; v2+=4) {
+                graph.addEdge(new Link<>(1),v1,v2);
             }
         }
 
