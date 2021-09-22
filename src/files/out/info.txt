@@ -1,18 +1,15 @@
 Short statistics:
 
 Input mreza:
-	Broj cvorova: 10995
-	Broj grana: 142051
-	Gustina:	0.002350
-	Prosječan stepen čvora u mreži: 25.84
+	Broj cvorova: 30
+	Broj grana: 251
+	Gustina:	0.577011
+	Prosječan stepen čvora u mreži: 16.73
 
 Rezultati klasterisanja:
-	Broj klastera:	422
-	Mreza nije klasterabilna!
-	Broj koalicija:	4 (broj cvorova: 81)
-	Broj antikoalicija:	418 (broj cvorova: 10914)
-	Grane koje je potrebno izbaciti da bi mreza postala klaserabilna: 		32072 (22.58%).
+	Broj klastera:	4
+	Sve komponente su i koalicije!
 
 Mreza klastera: 
-	Broj cvorova: 422
-	Broj grana: 46198
+	Broj cvorova: 4
+	Broj grana: 4

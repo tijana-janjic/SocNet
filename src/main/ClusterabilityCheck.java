@@ -46,18 +46,14 @@ public class ClusterabilityCheck<V, E> {
     public ClusterabilityCheck(UndirectedSparseGraph<V, E> net, Transformer<E, Boolean> transformer) {
         this.net = net;
         this.transformer = transformer;
-        this.density = graphDensity();
+        this.density = initGraphDensity();
         clusters = new HashSet<>();
         coalitions = new HashSet<>();
         anticoalitions = new HashSet<>();
         badEdges = new HashSet<>();
         init();
     }
-    public double graphDensity() {
-        double vertexCount = net.getVertexCount();
-        double maxEdges = (vertexCount-1) * vertexCount / 2;
-        return (double)(net.getEdgeCount())/maxEdges;
-    }
+
     /**
      * Pokretanje provjere klasterabilnosti
      */
@@ -71,6 +67,12 @@ public class ClusterabilityCheck<V, E> {
 
     private void initAverageVertexDegree(){
         degree = getAverageVertexDegree(net);
+    }
+
+    public double initGraphDensity() {
+        double vertexCount = net.getVertexCount();
+        double maxEdges = (vertexCount-1) * vertexCount / 2;
+        return (double)(net.getEdgeCount())/maxEdges;
     }
 
     private double getAverageVertexDegree(UndirectedSparseGraph<V,E> graph) {
