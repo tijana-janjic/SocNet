@@ -7,7 +7,7 @@ import java.util.*;
 public class RandomNetGenerator {
 
     private static final Random random = new Random();
-    private static final double coefExist = 0.5;
+    private static final double coefExist = 0.9;
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomClusterableSmallNet() {
         return generateRandomNet(random.nextInt(50)+6, random.nextInt(5)+1, true);
@@ -22,15 +22,15 @@ public class RandomNetGenerator {
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomClusterableNet() {
-        return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000)+1, true);
+        return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500)+1, true);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomUnclusterableNet() {
-        return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000) + 1, false);
+        return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500) + 1, false);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet() {
-            return generateRandomNet(random.nextInt(50000) + 6000, random.nextInt(5000)+1, random.nextBoolean());
+            return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500)+1, random.nextBoolean());
     }
 
     private static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet(int vertexCount, int clusterCount, boolean clusterable){
@@ -182,7 +182,7 @@ public class RandomNetGenerator {
 
         int v1, v2;
 
-        double coefPositive = 0.9;
+        double coefPositive = 0.5;
         while (edgeCount > 0) {
 
             v1 = cluster.get(random.nextInt(cluster.size()));
