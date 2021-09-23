@@ -7,7 +7,6 @@ import java.util.*;
 public class RandomNetGenerator {
 
     private static final Random random = new Random();
-    private static final double coefExist = 0.9;
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomClusterableSmallNet() {
         return generateRandomNet(random.nextInt(50)+6, random.nextInt(5)+1, true);
@@ -22,15 +21,15 @@ public class RandomNetGenerator {
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomClusterableNet() {
-        return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500)+1, true);
+        return generateRandomNet(random.nextInt(30000) + 10000, random.nextInt(5000)+1, true);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomUnclusterableNet() {
-        return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500) + 1, false);
+        return generateRandomNet(random.nextInt(30000) + 10000, random.nextInt(5000) + 1, false);
     }
 
     public static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet() {
-            return generateRandomNet(random.nextInt(10000) + 6000, random.nextInt(500)+1, random.nextBoolean());
+            return generateRandomNet(random.nextInt(30000) + 10000, random.nextInt(5000)+1, random.nextBoolean());
     }
 
     private static UndirectedSparseGraph<Integer, Link<Integer>> generateRandomNet(int vertexCount, int clusterCount, boolean clusterable){
@@ -86,12 +85,12 @@ public class RandomNetGenerator {
             mapEdgesCount.put(cluster, count);
         }
 
-        System.out.println("Dodavanje grana medju klasterima..." );
-        addClusterEdges(graph, map, vertexCount, clusterCount);
-
         System.out.println("Dodavanje grana unutar klastera..." );
         for (ArrayList<Integer> cluster : clusters)
             addOtherEdges(graph, cluster, clusterable, mapEdgesCount.get(cluster));
+
+        System.out.println("Dodavanje grana medju klasterima..." );
+        addClusterEdges(graph, map, vertexCount, clusterCount);
 
 
         System.out.println("\nGenerisanje random mreže završeno!\n");
@@ -107,17 +106,14 @@ public class RandomNetGenerator {
     private static void addClusterEdges(UndirectedSparseGraph<Integer, Link<Integer>> graph, HashMap<Integer, ArrayList<Integer>> map, int vertexCount, int clusterCount) {
         if (clusterCount == 1)
             return;
-        // N * (N - 1) / 2
         long max = (long) clusterCount * (clusterCount-1) / 2;
         long edgeCount = (long) (random.nextDouble() * max); // maksimalan broj grana u neusmjerenom grafu
         while (edgeCount > 0) {
             int v1 = random.nextInt(vertexCount);
             int v2 = random.nextInt(vertexCount);
-            if(v1 != v2 && map.get(v1) != map.get(v2) && random.nextDouble() > coefExist) {
-                if (graph.findEdge(v1,v2) == null){
-                    graph.addEdge(new Link<>(-1), v1, v2);
-                    edgeCount--;
-                }
+            if(v1 != v2 && map.get(v1) != map.get(v2) && graph.findEdge(v1,v2) == null){
+                graph.addEdge(new Link<>(-1), v1, v2);
+                edgeCount--;
             }
         }
     }
@@ -148,12 +144,10 @@ public class RandomNetGenerator {
             int v1 = visited.get(index1);
             int v2 = unvisited.get(index2);
 
-            if(random.nextDouble() > coefExist){
-                graph.addEdge(new Link<>(1), v1, v2);
-                edges++;
-                visited.add(unvisited.remove(index2));
-                visited.remove(index1);
-            }
+            graph.addEdge(new Link<>(1), v1, v2);
+            edges++;
+            visited.add(unvisited.remove(index2));
+            visited.remove(index1);
         }
         return edges;
     }
@@ -182,20 +176,18 @@ public class RandomNetGenerator {
 
         int v1, v2;
 
-        double coefPositive = 0.5;
+        double coefFriendly = 0.5;
         while (edgeCount > 0) {
 
             v1 = cluster.get(random.nextInt(cluster.size()));
             v2 = cluster.get(random.nextInt(cluster.size()));
             Link<Integer> link = graph.findEdge(v1, v2);
-            if (v1 != v2 && random.nextDouble() > coefExist) {
-                if (link == null){
-                    if (!clusterable && random.nextDouble() > coefPositive)
-                        graph.addEdge(new Link<>(-1), v1, v2);
-                    else
-                        graph.addEdge(new Link<>(1), v1, v2);
-                    edgeCount--;
-                }
+            if (v1 != v2 && link == null){
+                if (!clusterable && random.nextDouble() > coefFriendly)
+                    graph.addEdge(new Link<>(-1), v1, v2);
+                else
+                    graph.addEdge(new Link<>(1), v1, v2);
+                edgeCount--;
             }
         }
 
