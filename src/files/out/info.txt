@@ -1,10 +1,10 @@
 Short statistics:
 
 Input mreza:
-	Broj cvorova: 10
-	Broj grana: 33
-	Gustina:	0.733333
-	Prosječan stepen čvora u mreži: 6.60
+	Broj cvorova: 30
+	Broj grana: 323
+	Gustina:	0.742529
+	Prosječan stepen čvora u mreži: 21.53
 
 Rezultati klasterisanja:
 	Broj klastera:	4

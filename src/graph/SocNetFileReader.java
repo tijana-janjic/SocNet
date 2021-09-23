@@ -114,7 +114,7 @@ public class SocNetFileReader {
     }
 
     public UndirectedSparseGraph<Integer, Link<Integer>> readSlashDot() {
-        return readFromSimpleTxtFile("src/files/in/soc-sign-Slashdotn.txt");
+        return readFromSimpleTxtFile("src/files/in/soc-sign-Slashdot.txt");
     }
 
     public UndirectedSparseGraph<Integer, Link<Integer>> readEpions() {

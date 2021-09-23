@@ -21,18 +21,20 @@ public class Test {
         System.out.println("\t3: Slashdot");
         System.out.println("\t4: Epinions");
         System.out.println("\t5: Random mali graf");
-        System.out.println("\t6: Random veliki graf");
+        System.out.println("\t6: Random mali klasterabilan graf");
+        System.out.println("\t7: Random veliki graf");
+        System.out.println("\t8: Random veliki klasterabilan graf");
 
         String str;
         int op = -1;
         do {
             str = scanner.nextLine();
-            if (str.matches("[1-6]"))
+            if (str.matches("[1-8]"))
                 op = Integer.parseInt(str);
             else
                 System.out.println("Pokusajte ponovo");
 
-        } while (op < 1 || op > 6);
+        } while (op < 1 || op > 8);
 
         switch (op) {
             case 1 -> graph = RandomNetGenerator.getPremadeNet();
@@ -40,7 +42,9 @@ public class Test {
             case 3 -> graph = in.readSlashDot();
             case 4 -> graph = in.readEpions();
             case 5 -> graph = RandomNetGenerator.generateRandomUnclusterableSmallNet();
-            default -> graph = RandomNetGenerator.generateRandomUnclusterableNet();
+            case 6 -> graph = RandomNetGenerator.generateRandomClusterableSmallNet();
+            case 7 -> graph = RandomNetGenerator.generateRandomUnclusterableNet();
+            default -> graph = RandomNetGenerator.generateRandomClusterableNet();
         }
 
         ClusterabilityCheck<Integer, Link<Integer>> cc

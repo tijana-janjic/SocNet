@@ -205,7 +205,7 @@ public class RandomNetGenerator {
 
         UndirectedSparseGraph<Integer, Link<Integer>> graph = new UndirectedSparseGraph<>();
 
-        int n = 10;
+        int n = 30;
 
         for (int i = 1; i <= n; i++) {
             graph.addVertex(i);
