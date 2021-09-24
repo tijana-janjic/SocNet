@@ -2,6 +2,7 @@ package test;
 
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import graph.Link;
+import graph.PremadeGraph;
 import graph.RandomNetGenerator;
 import graph.SocNetFileReader;
 import main.ClusterabilityCheck;
@@ -37,7 +38,7 @@ public class Test {
         } while (op < 1 || op > 8);
 
         switch (op) {
-            case 1 -> graph = RandomNetGenerator.getPremadeNet();
+            case 1 -> graph = PremadeGraph.getPremadeNet();
             case 2 -> graph = in.readWiki();
             case 3 -> graph = in.readSlashDot();
             case 4 -> graph = in.readEpions();

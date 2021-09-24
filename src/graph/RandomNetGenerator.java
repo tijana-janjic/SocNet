@@ -85,13 +85,13 @@ public class RandomNetGenerator {
             mapEdgesCount.put(cluster, count);
         }
 
-        System.out.println("Dodavanje grana unutar klastera..." );
-        for (ArrayList<Integer> cluster : clusters)
-            addOtherEdges(graph, cluster, clusterable, mapEdgesCount.get(cluster));
-
         System.out.println("Dodavanje grana medju klasterima..." );
         addClusterEdges(graph, map, vertexCount, clusterCount);
 
+
+        System.out.println("Dodavanje grana unutar klastera..." );
+        for (ArrayList<Integer> cluster : clusters)
+            addOtherEdges(graph, cluster, clusterable, mapEdgesCount.get(cluster));
 
         System.out.println("\nGenerisanje random mreže završeno!\n");
 
@@ -191,35 +191,6 @@ public class RandomNetGenerator {
             }
         }
 
-    }
-
-    public static UndirectedSparseGraph<Integer, Link<Integer>> getPremadeNet(){
-
-        UndirectedSparseGraph<Integer, Link<Integer>> graph = new UndirectedSparseGraph<>();
-
-        int n = 30;
-
-        for (int i = 1; i <= n; i++) {
-            graph.addVertex(i);
-        }
-
-        //pozitivne grane
-        for (int v1 = 1; v1 <= n; v1++) {
-            for (int v2 = v1+4; v2 <= n; v2+=4) {
-                graph.addEdge(new Link<>(1),v1,v2);
-            }
-        }
-
-        //negativne grane
-        for (int v1 = 1; v1 <= n; v1++) {
-            for (int v2 = v1+1; v2 <= n; v2++) {
-                if(v1%2 != v2%2){
-                    graph.addEdge(new Link<>(-1),v1,v2);
-                }
-            }
-        }
-
-        return graph;
     }
 
 }
